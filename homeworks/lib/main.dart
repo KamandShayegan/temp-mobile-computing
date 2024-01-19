@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homework_one/second_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Homework 1 - Mobile Computing',
+      title: 'Homeworks - Mobile Computing',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.deepPurple,
       ),
-      home: const MyHomePage(title: 'Homework 1 - Mobile Computing'),
+      home: const MyHomePage(title: 'Homeworks - Mobile Computing'),
     );
   }
 }
@@ -102,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: _height[i],
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color: Colors.deepPurple.shade500,
+                      color: Colors.deepPurple.shade300,
                       borderRadius: BorderRadius.circular(12.0)),
                   alignment: Alignment.center,
                   child: Column(
@@ -111,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Text(
                         "A simple container number #${i + 1}",
                         style: const TextStyle(
-                          color: Colors.amber,
+                          color: Colors.white,
                         ),
                       ),
                       _open[i]
@@ -120,9 +121,26 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Text(
                                     'This is to show more info about container #${i + 1}'),
                                 Text("And this is an image:\n"),
-                                Image.asset(
-                                  'assets/codecode.jpg',
-                                  height: 80,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'assets/codecode.jpg',
+                                      height: 80,
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      SecondPage(idx: i + 1)));
+                                        },
+                                        child: Text('more'))
+                                  ],
                                 )
                               ],
                             )
