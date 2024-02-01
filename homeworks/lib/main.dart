@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:homework_one/second_page.dart';
+import 'package:homework_one/settings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize SharedPreferences
+  await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 
@@ -14,15 +20,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Homeworks - Mobile Computing',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.deepPurple,
       ),
       home: const MyHomePage(title: 'Homeworks - Mobile Computing'),
@@ -71,96 +68,97 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => Settings()));
+            },
+            child: Icon(Icons.settings),
+          ),
+        ],
       ),
       body: Center(
         child: SingleChildScrollView(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8.0),
-              child: const Text(
-                'These are 10 containers:\nPlease Click on each container to open them.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'San Francisco',
-                ),
-              ),
-            ),
-            for (int i = 0; i < 10; i++)
-              InkWell(
-                onTap: () {
-                  print(_open);
-                  setState(() {
-                    _changeState(i);
-                  });
-                },
-                child: Container(
-                  padding: EdgeInsets.all(8.0),
-                  margin: const EdgeInsets.all(8.0),
-                  height: _height[i],
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Colors.deepPurple.shade300,
-                      borderRadius: BorderRadius.circular(12.0)),
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        "A simple container number #${i + 1}",
-                        style: const TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      _open[i]
-                          ? Column(
-                              children: [
-                                Text(
-                                    'This is to show more info about container #${i + 1}'),
-                                Text("And this is an image:\n"),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      'assets/codecode.jpg',
-                                      height: 80,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      SecondPage(idx: i + 1)));
-                                        },
-                                        child: Text('more'))
-                                  ],
-                                )
-                              ],
-                            )
-                          : const SizedBox()
-                    ],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                child: const Text(
+                  'These are 10 containers:\nPlease Click on each container to open them.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'San Francisco',
                   ),
                 ),
-              )
-          ],
-        )),
+              ),
+              for (int i = 0; i < 10; i++)
+                InkWell(
+                  onTap: () {
+                    print(_open);
+                    setState(() {
+                      _changeState(i);
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.all(8.0),
+                    height: _height[i],
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.deepPurple.shade300,
+                        borderRadius: BorderRadius.circular(12.0)),
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "A simple container number #${i + 1}",
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        _open[i]
+                            ? Column(
+                                children: [
+                                  Text(
+                                      'This is to show more info about container #${i + 1}'),
+                                  Text("And this is an image:\n"),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        'assets/codecode.jpg',
+                                        height: 80,
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (_) => SecondPage(
+                                                        idx: i + 1)));
+                                          },
+                                          child: Text('more'))
+                                    ],
+                                  )
+                                ],
+                              )
+                            : const SizedBox()
+                      ],
+                    ),
+                  ),
+                )
+            ],
+          ),
+        ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.amber,
-      //   onPressed: _makeCircleBigger,
-      //   tooltip: 'Increment',
-      //   child: const Icon(
-      //     Icons.adjust,
-      //     color: Colors.deepPurple,
-      //   ),
-      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
