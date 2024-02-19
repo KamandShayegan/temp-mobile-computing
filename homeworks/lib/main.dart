@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:homework_one/local_notifications.dart';
+import 'package:homework_one/notif.dart';
 import 'package:homework_one/second_page.dart';
 import 'package:homework_one/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await LocalNotifications.init();
   // Initialize SharedPreferences
   await SharedPreferences.getInstance();
   runApp(const MyApp());
@@ -83,6 +85,10 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              ElevatedButton(
+                  onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => MyNotifications())),
+                  child: Text('HW-4')),
               Container(
                 padding: const EdgeInsets.all(8.0),
                 child: const Text(

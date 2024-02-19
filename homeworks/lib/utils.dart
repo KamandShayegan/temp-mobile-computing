@@ -14,11 +14,6 @@ class Utility {
     return _shared.setString(NAME_KEY, name);
   }
 
-  // static Future<String?> getName() async {
-  //   final _shared = await SharedPreferences.getInstance();
-  //   return _shared.getString(NAME_KEY);
-  // }
-
   //_____ for the image:
   Future<void> saveImagePath(String imagePath) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
